@@ -1,0 +1,9 @@
+.informations:hover,
+.informations:active {
+    background-color: rgba(206, 226, 244, 0.444);
+    cursor: pointer;
+    border-radius: 3%;
+}
+.light-blue{
+    background-color: rgba(206, 226, 244, 0.444);
+}

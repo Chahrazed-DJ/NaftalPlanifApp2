@@ -1,0 +1,120 @@
+<div  class="container pr-5 pl-5">
+    <div class="d-flex align-items-center pt-4">
+        <h1>Recouvrement</h1>
+        <h1 class="text-warning"> {{recouvrementSucces.id}} - </h1>
+        <h1 class="me-auto text-success">(Succès)</h1>
+        <div>
+          <h6>Assigné le : {{dateAssign}}</h6>
+          <h6 class="text-success">Terminé le : {{dateFinish}}</h6>
+        </div>
+    </div> 
+    <div class="container">
+        <div class="row">
+          <div class="col fine">
+            <div class="row">
+              <div class="col-md-5 ">
+                <img src="{{recouvrementSucces.employee.image}}" class="img-fluid rounded-circle border border-warning shadow">
+              </div>
+              <div class="col">
+                <h3> {{recouvrementSucces.employee.nom}}</h3>
+                <h4>Age : {{age}} ans</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col shadow rounded p-3 mb-5 " style="background-color: rgba(128, 128, 128, 0.233); color: black;">
+            <div class="row">       
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-person-vcard"></i>
+                        <h6 class="ml-2">Agent : {{recouvrementSucces.employee.nom}}</h6>
+                      </div> 
+            </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-envelope-at"></i>
+                    <h6 class="ml-2">{{recouvrementSucces.employee.email}}</h6>
+                  </div>
+             </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-telephone"></i>
+                    <h6 class="ml-2">{{recouvrementSucces.employee.phone}}</h6>
+                  </div>
+             </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-geo-alt"></i>
+                    <h6 class="ml-2">{{recouvrementSucces.employee.adresse}}</h6>
+                  </div>
+             </div>
+         </div>
+         
+          <div class="col shadow rounded p-3 mb-5 " style="background-color: black; color: white;">
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-person-vcard"></i>
+                    <h6 class="ml-2">Client : {{recouvrementSucces.client.nom}}</h6>
+                  </div>
+             </div>
+              <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-envelope-at"></i>
+                    <h6 class="ml-2">{{recouvrementSucces.client.email}}</h6>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-telephone"></i>
+                    <h6 class="ml-2">{{recouvrementSucces.client.phone}}</h6>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-buildings"></i>
+                    <h6 class="ml-2">{{recouvrementSucces.entreprise.nom}}</h6>
+                  </div>
+              </div>
+
+            
+          </div>
+        </div>
+      </div>
+      <nav class="navbar navbar-expand ">
+        <div class="container pb-3 " >
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li >
+                <a (click)="onLinkClick(0)" [ngClass]="{'clicked-link': activeLinkIndices[0]}"> 
+                    <span class="links_name" > Factures payées </span></a>
+              </li>
+              
+            </ul>
+          </div>
+          
+        </div>
+    </nav> 
+<div  class="border rounded">     
+ <table class="table" > 
+ <thead class="table-active">
+    <tr>
+        <th class="text-center p-3 " >ID&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('id')"></i></th>
+        <th class="text-center p-3 " >Montant&nbsp;<i class="bi bi-chevron-expand" (click)="sort('montant')"></i></th>
+        <th class="text-center p-3 "> Montant payé&nbsp;<i class="bi bi-chevron-expand" (click)="sort('montantPaye')"></i></th>
+        <th class="text-center p-3 "> Type</th>
+        <th class="text-center p-3 " >Document</th>
+        </tr>
+ </thead>
+ <tbody>
+     <tr *ngFor="let facturesp of facturesP | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-11,currentPage:p};">
+        <td class="text-center p-3 ">{{facturesp.id}}</td>
+        <td class="text-center p-3 ">{{facturesp.montant}} DA</td>
+        <td class="text-center p-3 ">{{facturesp.montantPaye}} DA</td>
+        <td class="text-center text-success p-3 " scope="row" *ngIf="facturesp.status===1">Complet</td>
+        <td class="text-center text-warning p-3 " scope="row" *ngIf="facturesp.status===2">Tranche</td>
+        <td class="text-center "> <i class="bi bi-box-arrow-in-down text-warning " *ngIf="facturesp" (click)="download(facturesp)"></i></td>
+     </tr>
+ </tbody>
+ 
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>

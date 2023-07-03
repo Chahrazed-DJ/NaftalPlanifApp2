@@ -1,0 +1,17 @@
+.links_name{
+    font-size: 30px;
+    color: grey;
+    font-weight: bold;
+    margin-right:30px ;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
+.clicked-link .links_name{
+  color: black !important;
+}
+.clicked-link {
+    text-decoration: underline black 2px;
+    text-underline-position: under;
+}

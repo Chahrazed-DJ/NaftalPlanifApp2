@@ -1,0 +1,165 @@
+<div  class="container pr-5 pl-5">
+    <div class="d-flex align-items-center pt-4">
+        <h1>Profil</h1>
+        <h1 class="me-auto text-warning">d'agent</h1>
+        
+    </div> 
+    <div class="container">
+        <div class="row">
+          <div class="col fine">
+            <div class="row">
+              <div class="col-md-5 ">
+                <img src="{{employeProfil.image}}" class="img-fluid rounded-circle border border-warning shadow">
+              </div>
+              <div class="col">
+                <h3>{{employeProfil.nom}}</h3>
+                <h4>Age : {{age}} ans</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col shadow rounded p-3 mb-5 " style="background-color: rgba(128, 128, 128, 0.233); color: black;">
+            <div class="row">       
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-person-vcard"></i>
+                        <h6 class="ml-2">Agent :{{employeProfil.nom}}</h6>
+                      </div> 
+            </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-envelope-at"></i>
+                    <h6 class="ml-2">{{employeProfil.email}} </h6>
+                  </div>
+             </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-telephone"></i>
+                    <h6 class="ml-2">{{employeProfil.phone}}</h6>
+                  </div>
+             </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-geo-alt"></i>
+                    <h6 class="ml-2">{{employeProfil.adresse}}</h6>
+                  </div>
+             </div>
+         </div>
+         
+          <div class="col shadow rounded p-3 mb-5 " style="background-color: black; color: white;">
+             <div class="row">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-journal-text"></i>
+                    <h6 class="ml-2"> Les opérations :</h6>
+                  </div>
+             </div>
+              <div class="row">
+                <div class="col">
+                    <h6 class="ml-2 text-center">En cours</h6>
+                    <h6 class="ml-2 text-center">{{occurrences[0]}}</h6>
+                </div>
+              
+              
+                <div class="col">
+                  <h6 class="ml-2 text-center">Succès</h6>
+                  <h6 class="ml-2 text-center">{{occurrences[1]}}</h6>
+              
+                </div>
+              
+                <div class="col">
+                  <h6 class="ml-2 text-center">SansSuccès</h6>
+                  <h6 class="ml-2 text-center">{{occurrences[2]}}</h6>
+                </div>
+
+                
+              </div>
+
+            
+          </div>
+        </div>
+      </div>
+      <nav class="navbar navbar-expand ">
+        <div class="container pb-3 " >
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li >
+                <a (click)="onLinkClick(0)" [ngClass]="{'clicked-link': activeLinkIndices[0]}"> 
+                    <span class="links_name" > Ventes</span></a>
+              </li>
+              <li >
+                <a (click)="onLinkClick(1)" [ngClass]="{'clicked-link': activeLinkIndices[1]}"> 
+                    <span class="links_name" > Recouvrements</span></a>
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+    </nav> 
+<ng-container *ngIf="showBlock">
+<div  class="border rounded">     
+ <table class="table" > 
+ <thead class="table-active">
+    <tr>
+        <th class="text-center p-3 " >ID&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('id',1)"></i></th>
+        <th class="text-center p-3 " >Client&nbsp;<i class="bi bi-chevron-expand" (click)="sort('nom',2)"></i></th>
+        <th class="text-center p-3 "> Entreprise</th>
+        <th class="text-center p-3 "> Montant</th>
+        <th class="text-center p-3 " >Status</th>
+        </tr>
+ </thead>
+ <tbody>
+     <tr *ngFor="let ven of ventes | orderBy: key: reserve | paginate: {itemsPerPage:4,currentPage:p};
+      let i=index;">
+        <td class="text-center p-3 ">{{ven.id}}</td>
+        <td class="text-center p-3 ">{{ven.client.nom}}</td>
+        <td class="text-center p-3 ">{{ven.entreprise.nom}}</td>
+        <td class="text-center p-3 " *ngIf="ven.status===1">{{montantsCalculesV[i]}} DA</td>
+        <td class="text-center p-3 " scope="row" *ngIf="ven.status===0">-</td>
+        <td class="text-center p-3 " scope="row" *ngIf="ven.status===2">0</td>
+        
+        <td class="text-center text-success p-3 " scope="row" *ngIf="ven.status===1">Succès</td>
+        <td class="text-center text-warning p-3 " scope="row" *ngIf="ven.status===0">En cours</td>
+        <td class="text-center text-danger p-3 " scope="row" *ngIf="ven.status===2">Sans Succès</td>
+        
+     </tr>
+ </tbody>
+ 
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+</ng-container>
+<ng-container *ngIf="!showBlock">
+  <div  class="border rounded">     
+   <table class="table" > 
+   <thead class="table-active">
+      <tr>
+          <th class="text-center p-3 " >ID&nbsp;  <i class="bi bi-chevron-expand" (click)="sort2('id',1)"></i></th>
+          <th class="text-center p-3 " >Client&nbsp;<i class="bi bi-chevron-expand" (click)="sort2('nom',2)"></i></th>
+          <th class="text-center p-3 "> Entreprise</th>
+          <th class="text-center p-3 "> Montant</th>
+          <th class="text-center p-3 " >Status</th>
+          </tr>
+   </thead>
+   <tbody>
+       <tr *ngFor="let ven of recouvrements | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-11,currentPage:p};
+        let i=index;">
+          <td class="text-center p-3 ">{{ven.id}}</td>
+          <td class="text-center p-3 ">{{ven.client.nom}}</td>
+          <td class="text-center p-3 ">{{ven.entreprise.nom}}</td>
+          <td class="text-center p-3 " *ngIf="ven.status===1">{{montantsCalculesR[i]}} DA</td>
+          <td class="text-center p-3 " scope="row" *ngIf="ven.status===0">-</td>
+          <td class="text-center p-3 " scope="row" *ngIf="ven.status===2">0</td>
+          <td class="text-center p-3 " scope="row" *ngIf="ven.status===3">0</td>
+  
+          <td class="text-center text-success p-3 " scope="row" *ngIf="ven.status===1">Succès</td>
+          <td class="text-center text-warning p-3 " scope="row" *ngIf="ven.status===0">En cours</td>
+          <td class="text-center text-danger p-3 " scope="row" *ngIf="ven.status===2">Sans Succès</td>
+          <td class="text-center text-secondary p-3 " scope="row" *ngIf="ven.status===3">Annulée</td>
+       </tr>
+   </tbody>
+   
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  </ng-container>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "naftal-6cf5b": {
+      "hosting": {
+        "NaftalPlanifApp": [
+          "naftal-6cf5b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "naftal-6cf5b"
+  }
+}

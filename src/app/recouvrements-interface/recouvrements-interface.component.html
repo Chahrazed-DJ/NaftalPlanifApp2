@@ -1,0 +1,45 @@
+
+<div  class="container pr-5 pl-5">
+    <form class="container-fluid pb-3">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Recherche avec nom" aria-label="Username" aria-describedby="basic-addon1"
+        name="firstname" [(ngModel)]="nomClient" (ngModelChange)="Search()">
+      </div>
+    </form>
+<div  class="border rounded">
+<table class="table" > 
+ <thead class="table-active">
+    <tr>
+        <th class="text-center p-3 " >ID&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('id',1)"></i></th>
+        <th class="text-center p-3 " >Client&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('nom',2)"></i></th>
+        <th class="text-center p-3 " >Agent&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('nom',3)"></i></th>
+        <th class="text-center p-3 "> Montant</th>
+        <th class="text-center p-3 " >Status</th>
+    </tr>
+ </thead>
+ <tbody>
+     <tr *ngFor="let rec of recouvrements | orderBy: key: reserve | paginate: {itemsPerPage:7,currentPage:p}; 
+         let i = index" class="informations" [ngClass]="{'light-blue': i === clickedRowIndex}" 
+             (click)="handleRowClick(i,rec)">
+        <td class="text-center p-3 ">{{rec.id}}</td>
+        <td class="text-center p-3 ">{{rec.client.nom}}</td>
+        <td class="text-center p-3 ">{{rec.employee.nom}}</td>
+
+        <td class="text-center p-3 " *ngIf="rec.status===1">{{montantsCalcules[i]}} DA</td>
+        <td class="text-center p-3 " scope="row" *ngIf="rec.status===0">-</td>
+        <td class="text-center p-3 " scope="row" *ngIf="rec.status===2">0</td>
+        <td class="text-center p-3 " scope="row" *ngIf="rec.status===3">0</td>
+
+        <td class="text-center text-success p-3 " scope="row" *ngIf="rec.status===1">Succès</td>
+        <td class="text-center text-warning p-3 " scope="row" *ngIf="rec.status===0">En cours</td>
+        <td class="text-center text-danger p-3 " scope="row" *ngIf="rec.status===2">Sans Succès</td>
+        <td class="text-center text-secondary p-3 " scope="row" *ngIf="rec.status===3">Annulée</td>
+
+     </tr>
+ </tbody>
+ 
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>

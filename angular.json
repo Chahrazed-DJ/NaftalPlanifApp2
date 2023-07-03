@@ -25,9 +25,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/firebase/firebase-app.js",
+              "node_modules/firebase/firebase-auth.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -72,6 +78,7 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "NaftalPlanifApp:build"
+           
           }
         },
         "test": {
@@ -91,8 +98,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "NaftalPlanifApp:build:production"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "9f6b6c39-fb7b-48b5-b40f-62cf0a14ea37"
   }
 }

@@ -1,0 +1,42 @@
+<div  class="container pr-5 pl-5">
+        <form class="container-fluid pb-3">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="Recherche par nom de client" aria-label="Username" aria-describedby="basic-addon1"
+            name="firstname" [(ngModel)]="nomClient" (ngModelChange)="Search()">
+          </div>
+        </form>
+    <div  class="border rounded">
+    <table class="table" > 
+     <thead class="table-active">
+        <tr>
+            <th class="text-center p-3 " >ID&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('id',1)"></i></th>
+            <th class="text-center p-3 " >Client&nbsp;<i class="bi bi-chevron-expand" (click)="sort('nomclient',1)"></i></th>
+            <th class="text-center p-3 "> Montant&nbsp;<i class="bi bi-chevron-expand" (click)="sort('montant',1)"></i></th>
+            <th class="text-center p-3 "> Montant Payé&nbsp;<i class="bi bi-chevron-expand" (click)="sort('montantPaye',1)"></i></th>
+            <th class="text-center p-3 "> Date limite&nbsp;<i class="bi bi-chevron-expand" (click)="sort('dateLimite',1)"></i></th>
+            <th class="text-center p-3 " >Status</th>
+            </tr>
+     </thead>
+     <tbody>
+         <tr *ngFor="let facture of factures | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-7,currentPage:p};">
+            <td class="text-center p-3 ">{{facture.id}}</td>
+
+            <td class="text-center p-3 ">{{facture.nomclient}}</td>
+            <td class="text-center p-3 ">{{facture.montant}} DA</td>
+            <td class="text-center p-3 " scope="row" *ngIf="facture.status===1">{{facture.montant}} DA</td>
+            <td class="text-center p-3 " scope="row" *ngIf="facture.status===0">0 DA</td>
+            <td class="text-center p-3 " scope="row" *ngIf="facture.status===2">{{facture.montantPaye}} DA</td>
+            <td class="text-center p-3 ">{{ getFormatDate(facture.dateLimite)}}</td>
+            
+            <td class="text-center text-success p-3 " scope="row" *ngIf="facture.status===1">Payée</td>
+            <td class="text-center text-danger  p-3 " scope="row" *ngIf="facture.status===0">Impayée</td>
+            <td class="text-center text-warning p-3 " scope="row" *ngIf="facture.status===2">Tranche</td>
+
+         </tr>
+     </tbody>
+     
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    </div>

@@ -1,0 +1,108 @@
+<div  class="container p-5">
+<nav class="navbar pb-3">
+    <form class="container-fluid">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Recherche par nom de client" aria-label="Username" aria-describedby="basic-addon1"
+        name="firstname" [(ngModel)]="Nom" (ngModelChange)="Search()">
+      </div>
+    </form>
+  </nav>
+
+<div  class="border rounded ">
+<table class="table" > 
+ <thead class="table-active">
+    <tr>
+        <th class="text-center p-3 " >ID&nbsp;  <i class="bi bi-chevron-expand" (click)="sort('id',1)"></i></th>
+        <th class="text-center p-3 " >Nom&nbsp;<i class="bi bi-chevron-expand" (click)="sort('nom',1)"></i></th>
+        <th class="text-center p-3 "> Entreprise</th>
+        <th class="text-center p-3 "> Agent &nbsp;<i class="bi bi-chevron-expand" (click)="sort('nom',2)"></i></th>
+        <th class="text-center p-3 " >status</th>
+        </tr>
+ </thead>
+ <tbody>
+     <tr *ngFor="let cli of clients | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-7,currentPage:p};">
+        <td class="text-center p-3 ">{{cli.client.id}}</td>
+        <td class="text-center p-3 ">{{cli.client.nom}}</td>
+        <td class="text-center p-3 ">{{cli.entreprise.nom}}</td>
+        <td class="text-center p-3 " *ngIf="cli.status">{{cli.employee.nom}}</td>
+        <td class="text-center " *ngIf="!cli.status"> 
+              <button  class="btn btn-dark mx-auto" (click)=" ClickedButton(cli); openModal(myModal)" data-toggle="modal" data-target="#myModal">
+                Assigner&nbsp; &nbsp;<i class="bi bi-plus-circle"></i>
+                </button>
+          </td>       
+         <td class="text-center text-success p-3 " scope="row" *ngIf="cli.status" >Assigné</td>
+         <td class="text-center text-warning p-3 " scope="row" *ngIf="!cli.status">En attente</td>
+     </tr>
+ </tbody>
+ 
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+
+
+<ng-template #myModal let-modal>
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content " >
+      <div class="modal-header ">
+        <h4 class="modal-title">Agents de vente</h4>
+      </div>
+      <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
+        <table class="table table-borderless table-3-col">
+          <tbody>
+            <tr   *ngFor="let row of getRows(); let rowIndex = index">
+              <td  *ngFor="let agent of row let cellIndex = index" 
+              [ngClass]="{'last-column': rowIndex === row.length - (row.length +5)}"
+          >
+                <div class="card  card-lg border-0">
+                  <div class="row custom-card no-gutters border-bottom"  style="max-width:  250px; max-height: 70px;"
+                  (click)="cardClickOpenModal2(agent,myModal2)">
+                    <div class="col-md-4">
+                      <img [src]="agent.image" class="card-img rounded-circle" alt="Image de la carte" style="padding-top:3px; max-width:  80px; max-height: 80px;">
+                    </div>
+                    <div class="col-md-8" style="padding-left: 0px;">
+                        <h6  class="card-title" style="margin-bottom: 0px !important; padding-top: 10px">{{agent.nom}}</h6>
+                        <p class="card-text"><small>Ventes achevées : {{agent.travailAcheve}}</small> </p>
+                    </div>
+                  </div>  
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel click')">Fermer</button>
+      </div>
+    </div>   
+  </div>
+</ng-template>
+
+
+
+<ng-template #myModal2 let-modal >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content  border-0">
+      <div class="modal-header d-flex justify-content-center border-0" style="padding-bottom: 0px;">  
+        <div class="card border-0" style="width: 18rem;">
+          <img [src]="receivedDataEmploye.image" class="card-img-top" alt="empAssigne" >
+          <div class="card-body">
+            <h4 class="modal-title" style="text-align: center;">{{receivedDataEmploye.nom}}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body d-flex justify-content-center  border-0">
+         <h5 style="padding: 10px; text-align: center;">Souhaitez-vous réellement attribuer cet employé à cette mission ?</h5>
+      </div>
+      <div class="modal-footer d-flex justify-content-center border-0" style="padding-bottom: 30px !important;">
+        <button type="button" class="btn btn-dark" (click)="closeAllModals(receivedDataEmploye)">Confirmer</button>
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('cancel click')">Annuler</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+</div>
+
+

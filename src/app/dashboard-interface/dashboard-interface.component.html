@@ -1,0 +1,171 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div  class="container pr-5 pl-5">
+        <div class="currency-grid">
+          <div class="currency-column">
+              <div class="currency-row currency-subrow" > 
+                  <div class="subcolumn">
+                          
+                            <div class="card info-card sales-card border-0">
+                              <div class="card-body shadow rounded border-0">
+                                <h5 class="card-title">Ventes <span>| Depuis 2023 </span></h5>
+                                <div class="d-flex align-items-center">
+                                  <div class="circle d-flex">
+                                    <i class="bi bi-cart3"></i>
+                                  </div>  
+                                    <h6>{{a}}.00 DZ</h6>   
+                                </div>
+                              </div>
+                            </div>
+                        
+                  </div>
+                  <div class="subcolumn">
+                          
+                            <div class="card info-card sales-card border-0">
+                              <div class="card-body shadow rounded border-0">
+                                <h5 class="card-title">Recouvrements <span>|  Depuis 2023 </span></h5>
+                                <div class="d-flex align-items-center">
+                                  <div class="circle d-flex ">
+                                    <i class="bi bi-cash-coin"></i> 
+                                  </div>
+                                    <h6>{{b}}.00 DZ</h6>
+                                </div>
+                              </div>
+                            </div>
+                          
+                      </div>
+                  </div>
+                <div class="currency-row currency-half-height shadow rounded" style="max-height: 310px;">
+                  <h6 class="card-title pt-1">Rapports <span>|  Depuis 2023 </span></h6>
+                    <apx-chart class="p-0 m-0"
+                      [series]="chartOptions.series"
+                      [chart]="chartOptions.chart"
+                      [xaxis]="chartOptions.xaxis"
+                      [stroke]="chartOptions.stroke"
+                      [tooltip]="chartOptions.tooltip"
+                      [dataLabels]="chartOptions.dataLabels"
+                      [markers]="chartOptions.markers"
+                      [fill]="chartOptions.fill"
+                      [colors]="chartOptions.colors"
+                    ></apx-chart>
+                </div>
+                <div class="currency-row border-0 shadow rounded p-0 mt-1">
+                  <h5 class="card-title p-3"> Derniers recouvrements ajoutés</h5>
+                <table class="table " > 
+                  <thead class="table text-primary">
+                    <tr>
+                        
+                        <th class="text-center "> Entreprise</th>
+                        <th class="text-center " >Client</th>
+                        <th class="text-center  "> Agent</th>
+                        <th class="text-center " >Nbr Factures</th>
+                        <th class="text-center " >Date</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let r of recouvrements | paginate: {itemsPerPage:2,currentPage:p};">
+                        
+                        <td class="text-center " >{{r.entreprise.nom}}</td>
+                        <td class="text-center ">{{r.client.nom}}</td>
+                        <td class="text-center ">{{r.employee.nom}}</td>
+                        <td class="text-center text-warning" >{{r.factures.length}}</td>
+                        <td class="text-center ">{{getFormatDate(r.createdAt)}}</td>
+
+                      </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            
+            </div>
+            <div class="currency-column " >
+              <div class="currency-row pt-3 ">
+                <div class="card info-card sales-card border-0 ">
+                  <div class="card-body shadow rounded border-0">
+                    <h5 class="card-title">Meilleure vente <span>| Depuis 2023 </span></h5>
+                    <div class="d-flex align-items-center">
+                      <div class="col-md-2">
+                        <img *ngIf="montantsCalculesVEmployee[maxIndex]" src="{{montantsCalculesVEmployee[maxIndex].image}}" class="card-img rounded-circle" alt="Image de la carte">
+                      </div>
+                      <div class="col-md-8" style="padding-left: 2px;">
+                        <h6  class="card-title mb-0" *ngIf="montantsCalculesVEmployee[maxIndex]">{{montantsCalculesVEmployee[maxIndex].nom}} </h6>
+                        <p class="card-text"><small style="color: #a9abb0; font-weight: bold;">+ {{montantsCalculesV[maxIndex]}}.00DA</small> </p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div  class="currency-row currency-half-height  border-0 shadow rounded p-0">   
+                <h5 class="card-title p-3"> Ventes récentes </h5>
+                <table class="table" > 
+                  <thead class="table text-primary">
+                    <tr>
+                        <th class="p-0 m-0 border-0" ></th>
+                        <th class="p-0 m-0 border-0" ></th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let vente of ventes | paginate: {itemsPerPage:4,currentPage:p2}; let i= index; ">
+                        <td class="text-center border-0   m-0">
+                          <div class="d-flex align-items-center">
+                            <div class="col-md-4">
+                              <img src="{{vente.employee.image}}" class="card-img rounded-circle" alt="Image de la carte">
+                            </div>
+                            <div class="col-md-8 p-0 m-0" >
+                              <h6  class="card-title mb-0">{{vente.employee.nom}}</h6>
+                          </div>
+                          </div>
+                        </td>
+                        <td class="text-center border-0 " >
+                         <h6 style="font-size: 13px !important;color: #4d4f52;"> {{getFormatDate(vente.createdAt)}}</h6>
+                        </td>
+                        <td class="text-center border-0 ">
+                          <h6 class="text-success" *ngIf="vente.status===1"> Succès</h6>
+                                <h6  class="text-warning" *ngIf="vente.status===0">En cours</h6>
+                                <h6  class="text-danger" *ngIf="vente.status===2">Sans succès</h6>
+                        </td>
+
+                      </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+              </div>
+              
+            </div>
+            <div class="currency-column" >
+              
+              <div class="currency-row pt-3 rounded shadow mt-5 mb-1">
+                <h6 class="card-title pt-1">Recouvrements<span>| Depuis 2023 </span></h6>
+                  <apx-chart *ngIf="chartOptions2"
+                    [series]="chartOptions2.series"
+                    [chart]="chartOptions2.chart"
+                    [labels]="chartOptions2.labels"
+                    [dataLabels]="chartOptions2.dataLabels"
+                    [title]="chartOptions2.title"
+                    [fill]="chartOptions2.fill"
+                    [states]="chartOptions2.states"
+                    [plotOptions]="chartOptions2.plotOptions"
+                    [stroke]="chartOptions2.stroke"
+                    [theme]="chartOptions2.theme"
+                    [responsive]="chartOptions2.responsive"
+                  ></apx-chart>
+            
+              </div>
+              <div class="currency-row pt-3 rounded shadow">
+                <h6 class="card-title pt-1" >Ventes<span>| Depuis 2023 </span></h6>
+                  <apx-chart *ngIf="chartOptions3"
+                    [series]="chartOptions3.series"
+                    [chart]="chartOptions3.chart"
+                    [dataLabels]="chartOptions3.dataLabels"
+                    [plotOptions]="chartOptions3.plotOptions"
+                    [yaxis]="chartOptions3.yaxis"
+                    [xaxis]="chartOptions3.xaxis"
+                    [legend]="chartOptions3.legend"
+                    [colors]="chartOptions3.colors"
+                    [grid]="chartOptions3.grid"
+                  ></apx-chart>
+               
+              </div>
+            </div>
+       </div>
+</div>
+

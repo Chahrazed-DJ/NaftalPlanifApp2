@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Responsive Sidebar Menu  | CodingLab </title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+
+  <div class="sidebar">
+    <ul class="nav-list">
+        <li class="profile">
+          
+            <div class="profile-details d-flex align-items-center">
+              <div class="col-md-2">
+                <img *ngIf="planificateur" src="{{planificateur.image}}" class="card-img rounded-circle" alt="Image de la carte">
+              </div>
+              <div class="col-md-8" style="padding-left: 30px; padding-right: 0px;">
+                <h6  class="card-title mb-0" style="font-size: 17px; font-weight: bold;" *ngIf="planificateur">{{planificateur.prenom}} {{planificateur.nom}}</h6>
+                <p class="card-text"><small style="color: #a9abb0; font-weight: bold;" *ngIf="planificateur" >{{planificateur.emploi}}</small> </p>
+            </div>
+            <i class='bx bx-menu' id="btn" (click)=" menuBtnChange()"></i>
+          </div>
+        </li>
+      
+
+      <li (click)="onChangePage('sidebar/dashboard'); ">
+        <a  (click)="onLinkClick(0)" [ngClass]="{'clicked-link': activeLinkIndices[0]}" class="shadow">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name" >Tableau de bord</span>
+        </a>
+         <span class="tooltip">Tableau de bord</span>
+      </li>
+
+      <li (click)="onChangePage('sidebar/clients')">
+       <a (click)="onLinkClick(1)" [ngClass]="{'clicked-link': activeLinkIndices[1]}" >
+         <i class='bx bx-group' ></i>
+         <span class="links_name">Clients</span>
+       </a>
+       <span class="tooltip">Clients</span>
+      </li>
+
+      <li (click)="onChangePage('sidebar/creancesClient')">
+        <a (click)="onLinkClick(2)" [ngClass]="{'clicked-link': activeLinkIndices[2]}" >
+          <i class='bx bx-spreadsheet' ></i>
+          <span class="links_name">Clients débiteurs</span>
+        </a>
+        <span class="tooltip">creances</span>
+      </li>
+
+     <li (click)="onChangePage('sidebar/employes')">
+       <a (click)="onLinkClick(3)" [ngClass]="{'clicked-link': activeLinkIndices[3]}" >
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Agents</span>
+       </a>
+       <span class="tooltip">Agents</span>
+     </li>
+
+     
+
+     <li (click)="onChangePage('sidebar/operations')">
+       <a (click)="onLinkClick(4)" [ngClass]="{'clicked-link': activeLinkIndices[4]}" >
+         <i class='bx bx-package' ></i>
+         <span class="links_name">Opérations</span>
+       </a>
+       <span class="tooltip">Opérations</span>
+     </li>
+
+     <li (click)="onChangePage('sidebar/produits')">
+       <a (click)="onLinkClick(5)" [ngClass]="{'clicked-link': activeLinkIndices[5]}" >
+        <i class='bx bx-cart-alt' ></i>
+         <span class="links_name">Produits</span>
+       </a>
+       <span class="tooltip">Produits</span>
+     </li>
+
+    
+
+     <li (click)="onChangePage('sidebar/settings')">
+       <a (click)="onLinkClick(6)" [ngClass]="{'clicked-link': activeLinkIndices[6]}" >
+         <i class='bx bx-cog' ></i>
+         <span class="links_name">Paramètres</span>
+       </a>
+       <span class="tooltip">Paramètres</span>
+     </li>
+
+     <li>
+       <a (click)="onLinkClick(7); logout();" [ngClass]="{'clicked-link': activeLinkIndices[7]}" >
+         <i class='bx bx-log-out' ></i>
+         <span class="links_name">Déconnecter</span>
+       </a>
+       <span class="tooltip">Déconnecter</span>
+     </li>
+     
+    </ul>
+  </div>
+  <section class="all-sections">
+    <router-outlet></router-outlet>
+  </section> 
+</body>
+</html>

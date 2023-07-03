@@ -1,0 +1,98 @@
+<div  class="container pr-5 pl-5">
+    <div class="d-flex align-items-center pt-4">
+        <h1>Vente</h1>
+        <h1 class="text-warning"> {{venteEncours.id}} - </h1>
+        <h1 class="me-auto text-warning">(En cours)</h1>
+        <div>
+          <h6>Assigné le : {{dateAssign}}</h6>
+        </div>
+    </div> 
+    <div class="container">
+        <div class="row">
+          <div class="col fine">
+            <div class="row">
+              <div class="col-md-5 ">
+                <img src="{{venteEncours.employee.image}}" class="img-fluid rounded-circle border border-warning shadow">
+              </div>
+              <div class="col">
+                <h3>{{venteEncours.employee.nom}}</h3>
+                <h4>Age : {{age}} ans</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col shadow rounded p-3 mb-5 " style="background-color: rgba(128, 128, 128, 0.233); color: black;">
+            <div class="row">       
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-person-vcard"></i>
+                        <h6 class="ml-2">Agent : {{venteEncours.employee.nom}}</h6>
+                      </div> 
+            </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-envelope-at"></i>
+                    <h6 class="ml-2">{{venteEncours.employee.email}}</h6>
+                  </div>
+             </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-telephone"></i>
+                    <h6 class="ml-2">{{venteEncours.employee.phone}}</h6>
+                  </div>
+             </div>
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-geo-alt"></i>
+                    <h6 class="ml-2">{{venteEncours.employee.adresse}}</h6>
+                  </div>
+             </div>
+         </div>
+         
+          <div class="col shadow rounded p-3 mb-5 " style="background-color: black; color: white;">
+             <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-person-vcard"></i>
+                    <h6 class="ml-2">Client : {{venteEncours.client.nom}}</h6>
+                  </div>
+             </div>
+              <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-envelope-at"></i>
+                    <h6 class="ml-2">{{venteEncours.client.email}}</h6>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-telephone"></i>
+                    <h6 class="ml-2">{{venteEncours.client.phone}}</h6>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-buildings"></i>
+                    <h6 class="ml-2">{{venteEncours.entreprise.nom}}</h6>
+                  </div>
+              </div>
+
+            
+          </div>
+        </div>
+      </div>
+      <nav class="navbar navbar-expand ">
+        <div class="container pb-3 " >
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li >
+                <a (click)="onLinkClick(0)" [ngClass]="{'clicked-link': activeLinkIndices[0]}"> 
+                    <span class="links_name" > Produits vendus </span></a>
+              </li> 
+            </ul>
+          </div>
+        </div>
+    </nav> 
+    <div class="warning-container">
+        <div class="warning-icon">
+            <i class="bi bi-exclamation-circle"></i>
+        </div>
+        <h3>L'employé n'a encore rien vendu au client</h3>     
+      </div>
+</div>

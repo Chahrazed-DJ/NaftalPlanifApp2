@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap">
+            <form >
+              <div class="logo">
+                <img src="assets/Naftal_Algerie.png" alt="naftal" />
+              </div>
+
+              <div class="heading">
+                <h2>J'accède à mon compte</h2>
+              </div>
+
+              <div class="actual-form">
+                <div class="input-wrap">
+                  <input
+                   
+                    name="email"
+                    type="text"
+                    minlength="4"
+                    class="input-field"
+                    [(ngModel)]="email"
+                    autocomplete="off"
+                    required
+                  />
+                  <label for="email">Adresse e-mail</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                   
+                    name="password"
+                    type="password"
+                    minlength="4"
+                    class="input-field"
+                    [(ngModel)]="password"
+                    autocomplete="off"
+                    required
+                  />
+                  <label for="password">Mots de passe</label>
+                </div>
+
+                <input type="submit" value="Se connecter" class="sign-btn" (click)="login()"/>
+
+                <p class="text-center"> 
+                  <a (click)="sendEmail();">Mots de passe oublié?</a> 
+                </p>
+              </div>
+            </form>
+          </div>
+          <div class="carousel">
+            <div class="images-wrapper">
+              <img src="./assets/fr.jpg" class="image img-1 show" alt="" />
+            </div>
+
+            <div class="text-slider">
+             
+                <div class="text-group">
+                  <h4>Optimisez votre temps : l'importance de planifier sa journée à l'avance</h4>
+                </div>
+              
+
+              <div class="bullets">
+                <span data-value="1"></span>
+                <span data-value="2"></span>
+                <span data-value="3"></span>
+                <span data-value="4"></span>
+                <span data-value="5"></span>
+                <span data-value="6"></span>
+                <span data-value="7"></span>
+                <span data-value="8"></span>
+                <span data-value="9"></span>
+                <span data-value="10"></span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

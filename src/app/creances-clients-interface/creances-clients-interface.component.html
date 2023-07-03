@@ -1,0 +1,19 @@
+<div  class="container pt-4">
+    <nav class="navbar navbar-expand ">
+        <div class="container pb-4 " >
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li  (click)="onChangePage('sidebar/creancesClient/debiteurs')">
+                <a (click)="onLinkClick(0)" [ngClass]="{'clicked-link': activeLinkIndices[0]}"> 
+                    <span class="links_name" > Débiteurs</span></a>
+              </li>
+              <li (click)="onChangePage('sidebar/creancesClient/factures')">
+                <a  (click)="onLinkClick(1)" [ngClass]="{'clicked-link': activeLinkIndices[1]}">
+                    <span class="links_name" > Factures</span> </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</div>
