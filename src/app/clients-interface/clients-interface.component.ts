@@ -122,6 +122,7 @@ export class ClientsInterfaceComponent  implements OnInit{
     EmployeConfirme.travailAssigne++;
 
     this.rs.updateAll("Agents",EmployeConfirme.id,EmployeConfirme);
+    this.rs.createSubcollection(EmployeConfirme.id,nouvVente.createdAt,nouvVente.id);
    
       const url = 'https://fcm.googleapis.com/fcm/send';
       const serverKey = 'AAAAjB_RNiA:APA91bFyKMEQ9JAFi1M_Hsu1vbQFEPA6T1O3oNiczsTOQSdCnelGZ9ay8gN7S-B1RolmIpFLmijFav2rmQg_zeTYX_HcmpXhw93QpjIJZM_Ni0zilNaW95bT_-D5CHOq0RWSvjmMNp5E'; // Remplacez par votre clé de serveur FCM
@@ -149,7 +150,7 @@ export class ClientsInterfaceComponent  implements OnInit{
         }
       );
     
-     this.rs.createSubcollection(EmployeConfirme.id,nouvVente.createdAt,nouvVente.id);
+     
 
     /********************************************************************************************* */
     this.modalService.dismissAll();

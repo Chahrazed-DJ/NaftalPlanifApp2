@@ -5,6 +5,7 @@ import { RestService } from '../rest.service';
 import { Debiteurs } from '../models/debiteurs';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-debiteurs-interface',
   templateUrl: './debiteurs-interface.component.html',
@@ -22,7 +23,7 @@ export class DebiteursInterfaceComponent implements OnInit{
 
   clientUpdate: any;
   Nom:any;
-  constructor(public rs:RestService,private modalService: NgbModal,
+  constructor(public rs:RestService,private modalService: NgbModal,private http:HttpClient
               ){}
   ngOnInit(): void {
     
@@ -125,8 +126,37 @@ export class DebiteursInterfaceComponent implements OnInit{
 
     EmployeConfirme.travailAssigne++;
     this.rs.updateAll("Agents",EmployeConfirme.id,EmployeConfirme);
+    
 
-    this.modalService.dismissAll();
+
+    this.rs.createSubcollection(EmployeConfirme.id,nouvRecouvrement.createdAt,nouvRecouvrement.id);
+   
+    const url = 'https://fcm.googleapis.com/fcm/send';
+    const serverKey = 'AAAAjB_RNiA:APA91bFyKMEQ9JAFi1M_Hsu1vbQFEPA6T1O3oNiczsTOQSdCnelGZ9ay8gN7S-B1RolmIpFLmijFav2rmQg_zeTYX_HcmpXhw93QpjIJZM_Ni0zilNaW95bT_-D5CHOq0RWSvjmMNp5E'; // Remplacez par votre clé de serveur FCM
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `key=${serverKey}`
+    });
+  
+    const payload = {
+      notification: {
+        title: 'Nouvelle opération assignée',
+        body: 'vous avez été affecté à une nouvelle opération de recouvrement de l\'id #'+nouvRecouvrement.id,
+        // Autres propriétés de la notification
+      },
+      to: EmployeConfirme.token};
+  
+      this.http.post(url, payload, { headers: headers })
+      .subscribe(
+        response => {
+          console.log('Notification envoyée avec succès', response);
+        },
+        error => {
+          console.error('Erreur lors de l\'envoi de la notification', error);
+        })
+
+      this.modalService.dismissAll();
 
     //EmployeConfirme.Travail_assigne++;
 
