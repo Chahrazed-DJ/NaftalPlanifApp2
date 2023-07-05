@@ -22,11 +22,11 @@
      <tbody>
          <tr *ngFor="let debit of debiteurs | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-7,currentPage:p};
              let i = index ">
-            <td class="text-center p-3 ">{{debit.client.nom}}</td>
-            <td class="text-center p-3 ">{{debit.entreprise.nom}}</td>
+            <td class="text-center p-3 ">{{debit.client.nom.toUpperCase()}}</td>
+            <td class="text-center p-3 ">{{debit.entreprise.nom.toUpperCase()}}</td>
             <td class="text-center p-3 ">{{debit.factures.length}}</td>
             <td class="text-center p-3 "> {{ montantsCalcules[i] }} DA</td>
-            <td class="text-center p-3 " *ngIf="debit.status">{{debit.employee.nom}}</td>
+            <td class="text-center p-3 " *ngIf="debit.status">{{debit.employee.nom.toUpperCase()}}</td>
             <td class="text-center" *ngIf="!debit.status"> 
                   <button  class="btn btn-dark mx-auto" (click)=" ClickedButton(debit); openModal(myModal)" data-toggle="modal" data-target="#myModal">
                     Assigner&nbsp; &nbsp;<i class="bi bi-plus-circle"></i>

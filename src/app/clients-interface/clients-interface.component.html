@@ -23,9 +23,9 @@
  <tbody>
      <tr *ngFor="let cli of clients | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-7,currentPage:p};">
         <td class="text-center p-3 ">{{cli.client.id}}</td>
-        <td class="text-center p-3 ">{{cli.client.nom}}</td>
-        <td class="text-center p-3 ">{{cli.entreprise.nom}}</td>
-        <td class="text-center p-3 " *ngIf="cli.status">{{cli.employee.nom}}</td>
+        <td class="text-center p-3 ">{{cli.client.nom.toUpperCase()}}</td>
+        <td class="text-center p-3 ">{{cli.entreprise.nom.toUpperCase()}}</td>
+        <td class="text-center p-3 " *ngIf="cli.status">{{cli.employee.nom.toUpperCase()}}</td>
         <td class="text-center " *ngIf="!cli.status"> 
               <button  class="btn btn-dark mx-auto" (click)=" ClickedButton(cli); openModal(myModal)" data-toggle="modal" data-target="#myModal">
                 Assigner&nbsp; &nbsp;<i class="bi bi-plus-circle"></i>

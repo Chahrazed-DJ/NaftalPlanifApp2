@@ -24,7 +24,7 @@
      <tbody>
          <tr *ngFor="let user of employes | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-7,currentPage:p};let i = index" class="informations" [ngClass]="{'light-blue': i === clickedRowIndex}" (click)="handleRowClick(i,user)">
             <td class="text-center p-3 ">{{user.id}}</td>
-            <td class="text-center p-3 ">{{user.nom}}</td>
+            <td class="text-center p-3 ">{{user.nom.toUpperCase()}}</td>
             <td class="text-center p-3 ">{{user.phone}}</td>
             <td class="text-center p-3 ">{{user.email}}</td>
             <td class="text-center text-success p-3 " scope="row">{{user.travailAcheve}}</td>

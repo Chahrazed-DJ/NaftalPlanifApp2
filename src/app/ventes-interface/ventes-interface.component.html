@@ -17,7 +17,8 @@
         <th class="text-center p-3 " >Agent&nbsp;<i class="bi bi-chevron-expand" (click)="sort('nom',4)"></i></th>
         <th class="text-center p-3 "> Daira&nbsp;<i class="bi bi-chevron-expand" (click)="sort('daira',1)"></i></th>
         <th class="text-center p-3 " >Montant</th>
-        <th class="text-center p-3 " >Status</th>
+        <th class="text-center p-3 " >Date-deb&nbsp;<i class="bi bi-chevron-expand" (click)="sort('createdAt',1)"></i></th>
+        <th class="text-center p-3 " >Status</th> 
     </tr>
  </thead>
  <tbody>
@@ -25,16 +26,18 @@
         let i = index" class="informations"
        [ngClass]="{'light-blue': i === clickedRowIndex}" (click)="handleRowClick(i,vente)">
         <td class="text-center p-3 ">{{vente.id}}</td>
-        <td class="text-center p-3 ">{{vente.client.nom}}</td>
-        <td class="text-center p-3 ">{{vente.entreprise.nom}}</td>
-        <td class="text-center p-3 ">{{vente.employee.nom}}</td>
-        <td class="text-center p-3 ">{{vente.daira}}</td>
+        <td class="text-center p-3 ">{{vente.client.nom.toUpperCase()}}</td>
+        <td class="text-center p-3 ">{{vente.entreprise.nom.toUpperCase()}}</td>
+        <td class="text-center p-3 ">{{vente.employee.nom.toUpperCase()}}</td>
+        <td class="text-center p-3 ">{{vente.daira.toUpperCase()}}</td>
 
        
         <td class="text-center p-3 " *ngIf="vente.status===1"> {{ montantsCalcules[i] }}DA</td>
         <td class="text-center p-3 " scope="row" *ngIf="vente.status===0">-</td>
         <td class="text-center p-3 " scope="row" *ngIf="vente.status===2">0</td>
         <td class="text-center p-3 " scope="row" *ngIf="vente.status===3">0</td>
+
+        <td class="text-center p-3 ">{{getFormatDate(vente.createdAt)}}</td>
 
         <td class="text-center text-success p-3 " scope="row" *ngIf="vente.status===1">Succès</td>
         <td class="text-center text-warning p-3 " scope="row" *ngIf="vente.status===0">En cours</td>

@@ -6,7 +6,7 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
   
-              <img *ngIf="planificateur" src="{{planificateur.image}}" alt="log" class="rounded-circle">
+              <img *ngIf="planificateur" src="{{planificateur.image}}" alt="log" class="rounded-circle" >
               <h2 *ngIf="planificateur"> {{planificateur.prenom}} {{planificateur.nom}}</h2>
               <h3 *ngIf="planificateur">{{planificateur.emploi}}</h3>
             </div>
@@ -75,7 +75,7 @@
                     <div class="row mb-3">
                       <label for="image" class="col-md-4 col-lg-3 col-form-label">Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img *ngIf="updatedPlanificateur" src="{{updatedPlanificateur.image}}" alt="Prof">
+                        <img *ngIf="updatedPlanificateur" src="{{updatedPlanificateur.image}}" alt="Prof" >
                         <div class="pt-2">
                           <input name="fullimage" type="text" class="form-control" id="fullimage"
                           *ngIf="updatedPlanificateur"  [(ngModel)]="updatedPlanificateur.image">

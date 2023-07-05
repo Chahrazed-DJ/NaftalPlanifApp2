@@ -22,7 +22,7 @@
          <tr *ngFor="let facture of factures | orderBy: key: reserve | paginate: {itemsPerPage:iPerPage-7,currentPage:p};">
             <td class="text-center p-3 ">{{facture.id}}</td>
 
-            <td class="text-center p-3 ">{{facture.nomclient}}</td>
+            <td class="text-center p-3 ">{{facture.nomclient.toUpperCase()}}</td>
             <td class="text-center p-3 ">{{facture.montant}} DA</td>
             <td class="text-center p-3 " scope="row" *ngIf="facture.status===1">{{facture.montant}} DA</td>
             <td class="text-center p-3 " scope="row" *ngIf="facture.status===0">0 DA</td>

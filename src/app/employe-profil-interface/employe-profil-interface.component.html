@@ -109,8 +109,8 @@
      <tr *ngFor="let ven of ventes | orderBy: key: reserve | paginate: {itemsPerPage:4,currentPage:p};
       let i=index;">
         <td class="text-center p-3 ">{{ven.id}}</td>
-        <td class="text-center p-3 ">{{ven.client.nom}}</td>
-        <td class="text-center p-3 ">{{ven.entreprise.nom}}</td>
+        <td class="text-center p-3 ">{{ven.client.nom.toUpperCase()}}</td>
+        <td class="text-center p-3 ">{{ven.entreprise.nom.toUpperCase()}}</td>
         <td class="text-center p-3 " *ngIf="ven.status===1">{{montantsCalculesV[i]}} DA</td>
         <td class="text-center p-3 " scope="row" *ngIf="ven.status===0">-</td>
         <td class="text-center p-3 " scope="row" *ngIf="ven.status===2">0</td>

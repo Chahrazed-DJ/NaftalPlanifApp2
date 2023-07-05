@@ -20,7 +20,7 @@ export class VentesInterfaceComponent implements OnInit {
   constructor(public rs:RestService,private router: Router){}  
   ngOnInit(): void {
     this.rs.getData("Ventes").then((data) => {
-      this.ventes=data;
+      this.ventes=data; 
       this.ventes.map(vente => {
        
           this.montantsCalcules.push(this.calculMontant(vente));
@@ -85,4 +85,8 @@ export class VentesInterfaceComponent implements OnInit {
       }
    return a;
   }
+  getFormatDate(d:any)
+   {
+    return this.rs.getMyFormat(d);
+   }
 }

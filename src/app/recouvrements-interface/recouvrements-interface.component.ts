@@ -84,4 +84,8 @@ export class RecouvrementsInterfaceComponent implements OnInit {
     
  return a;
   }
+  getFormatDate(d:any)
+  {
+   return this.rs.getMyFormat(d);
+  }
 }
