@@ -25,7 +25,7 @@ export class RestService {
   getUser(){
     return this.userInfo;
   }
-  seConnecter(useremail:string, password:string){
+  seConnecter(useremail:string, password:string):any{
     const auth = getAuth(this.app);
       signInWithEmailAndPassword(auth, useremail, password)
       .then(async (userCredential) => {
@@ -154,15 +154,19 @@ export class RestService {
   }
 
 
-    sendPasswordEmail(email:string){
+    sendPasswordEmail(email:string):any{
     if(email!='')
     {
       const auth = getAuth(this.app);
       sendPasswordResetEmail(auth, email)
       .then(() => {
-     })
+     }).catch((error)=> {
+      return 'Adresse email non valide !';
+     }
+     )
+     return 'h';
     }
-    else alert('Votre adresse email, SVP!');
+    else return 'Votre adresse email, SVP!';
     }
   
    async getData(collectionName:string){
@@ -221,6 +225,18 @@ canActivate(): boolean {
     return false;
   }
 }
+ async changePassword(psw:any,newpsw:any):Promise<boolean>{
+  let passCorrect : boolean =false;
+  const auth = getAuth(this.app);
+  await signInWithEmailAndPassword(auth, this.userInfo.email, psw)
+  .then(async (userCredential) => {
+    passCorrect= true;
+    updatePassword(userCredential.user, newpsw).then(() => {
+      console.log('updated');
+    }).catch((error) => {passCorrect= false;});
+  }).catch((error) =>{ passCorrect= false;})
+  return passCorrect;
+ }
 }
 
 

@@ -10,20 +10,25 @@ import { RestService } from '../rest.service';
 export class LoginInterfaceComponent implements OnInit{
 
   email: string='';
+  emptyEmail= false;
   password:string= '';
+  emptyPassword=false;
+  emailSent=false;
+  errorMessage='';
   constructor(public rs:RestService) { }
   ngOnInit(): void {
   }
 
 
   login(){
+    this.errorMessage='';
+    this.emailSent=false;
     if(this.email=='')
-    alert('entrer votre adresse email');
+    { this.emptyEmail=true; this.errorMessage='Entrez votre email et votre mots de passe'}
     
     if(this.password=='')
-    alert('entrer votre mots de passe');
-    
-    this.rs.seConnecter(this.email,this.password);
+    { this.emptyPassword=true; this.errorMessage='Entrez votre email et votre mots de passe'}
+      this.rs.seConnecter(this.email,this.password);
 
     this.email='';
     this.password='';
@@ -31,7 +36,8 @@ export class LoginInterfaceComponent implements OnInit{
 
 
   sendEmail(){
-    this.rs.sendPasswordEmail(this.email);
+    this.errorMessage=this.rs.sendPasswordEmail(this.email);
+    if (this.errorMessage=='h') this.emailSent=true;
   }
 
 }
